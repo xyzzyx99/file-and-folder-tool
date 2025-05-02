@@ -17,7 +17,12 @@ function activate(context) {
 
   const copyToClipboard = async (text) => {
     await vscode.env.clipboard.writeText(text);
-    vscode.window.showInformationMessage(`Copied: ${text}`);
+    const lines = text.split("\n");
+    if (lines.length = 1) {
+      vscode.window.showInformationMessage(`Copied: ${text}`);
+    } else {
+      vscode.env.clipboard.writeText(lines[0].trim() + ", and more...");
+    }
   };
 
   const commands = [
@@ -44,6 +49,30 @@ function activate(context) {
         const file = getActiveFile();
         if (file) copyToClipboard(path.dirname(file));
       }
+    },
+    {
+      command: 'fft.copyAllFileName',
+      callback: () => {
+        const paths = GetPaths();
+        const filenames = paths.map(p => path.basename(p)).sort();
+        vscode.env.clipboard.writeText(filenames.join("\n"))
+      }
+    },
+    {
+      command: 'fft.copyAllFileNameWithoutExtension',
+      callback: () => {
+        const paths = GetPaths();
+        const filenames = paths.map(p => path.dirname(p)).sort();
+        vscode.env.clipboard.writeText(filenames.join("\n"))
+      }
+    },
+    {
+      command: 'fft.copyAllDirectoryPath',
+      callback: () => {
+        const paths = GetPaths();
+        const filenames = paths.map(p => path.dirname(p)).sort();
+        vscode.env.clipboard.writeText(filenames.join("\n"))
+      }
     }
   ];
 
@@ -51,6 +80,27 @@ function activate(context) {
     const disposable = vscode.commands.registerCommand(cmd.command, cmd.callback);
     context.subscriptions.push(disposable);
   }
+}
+
+function GetPaths() {
+	const fsPaths = vscode.workspace.textDocuments.map(doc => doc.uri.fsPath);
+	const documentFsPaths = vscode.window.visibleTextEditors.map(eidtor => eidtor.document.uri.fsPath);
+	const tabPaths = vscode.window.tabGroups.all.flatMap(({ tabs }) => tabs.map(tab => {
+		if (tab.input instanceof vscode.TabInputText || tab.input instanceof vscode.TabInputNotebook) {
+			return tab.input.uri.fsPath;
+		}
+
+		if (tab.input instanceof vscode.TabInputTextDiff || tab.input instanceof vscode.TabInputNotebookDiff) {
+			return tab.input.original.fsPath;
+		}
+
+		return null;
+	})).filter(Boolean);
+	const distinctPaths = [...new Set([...fsPaths.concat(documentFsPaths).concat(tabPaths)]
+	.filter(path => !path.startsWith("git") && 
+					!path.endsWith("git") &&
+					path !== null))];
+	return distinctPaths;
 }
 
 function deactivate() {}

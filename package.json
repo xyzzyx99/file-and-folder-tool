@@ -2,7 +2,7 @@
   "name": "file-and-folder-tool",
   "displayName": "File And Folder Tool",
   "description": "Copy file name, directory path and more.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "YongXianYin",
   "icon": "images/icon.png",
   "license": "MIT",
@@ -21,6 +21,13 @@
   ],
   "main": "./extension.js",
   "contributes": {
+    "submenus": [
+      {
+        "id": "fftOthers",
+        "groupId": "fftOthers",
+        "label": "FFT: Others"
+      }
+    ],
     "menus": {
       "editor/title/context": [
         {
@@ -35,6 +42,24 @@
         {
           "command": "fft.copyDirectoryPath",
           "group": "2_copy@3"
+        },
+        {
+          "submenu": "fftOthers",
+          "group": "2_copy@4"
+        }
+      ],
+      "fftOthers": [
+        {
+          "command": "fft.copyAllFileName",
+          "group": "fftOthers@1"
+        },
+        {
+          "command": "fft.copyAllFileNameWithoutExtension",
+          "group": "fftOthers@2"
+        },
+        {
+          "command": "fft.copyAllDirectoryPath",
+          "group": "fftOthers@3"
         }
       ]
     },
@@ -50,6 +75,18 @@
       {
         "command": "fft.copyDirectoryPath",
         "title": "FFT: Copy Directory Path"
+      },
+      {
+        "command": "fft.copyAllFileName",
+        "title": "FFT: Copy All File Name"
+      },
+      {
+        "command": "fft.copyAllFileNameWithoutExtension",
+        "title": "FFT: Copy All File Name Without Extension"
+      },
+      {
+        "command": "fft.copyAllDirectoryPath",
+        "title": "FFT: Copy All Directory Path"
       }
     ]
   },
