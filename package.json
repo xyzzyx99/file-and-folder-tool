@@ -4,14 +4,40 @@
   "description": "Copy file name, full path, directory path, or open the file directory.",
   "version": "0.0.1",
   "publisher": "YongXianYin",
+  "icon": "images/icon.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yinyongxian/file-and-folder-tool"
+  },
+  "categories": [
+    "Other"
+  ],
   "engines": {
-    "vscode": "^1.70.0"
+    "vscode": "^1.100.0"
   },
   "activationEvents": [
     "onStartupFinished"
   ],
   "main": "./extension.js",
   "contributes": {
+    "menus": {
+      "editor/title/context": [
+        {
+          "command": "fft.copyFileName",
+          "group": "2_copy@1"
+
+        },
+        {
+          "command": "fft.copyFileNameWithoutExtension",
+          "group": "2_copy@2"
+        },
+        {
+          "command": "fft.copyDirectoryPath",
+          "group": "2_copy@3"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "fft.copyFileName",
@@ -20,10 +46,6 @@
       {
         "command": "fft.copyFileNameWithoutExtension",
         "title": "FFT: Copy File Name Without Extension"
-      },
-      {
-        "command": "fft.copyFullPath",
-        "title": "FFT: Copy Full File Path"
       },
       {
         "command": "fft.copyDirectoryPath",

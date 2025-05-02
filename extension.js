@@ -3,6 +3,12 @@ const path = require('path');
 const fs = require('fs');
 const child_process = require('child_process');
 
+// https://github.com/yinyongxian/file-and-folder-tool
+// https://code.visualstudio.com/api
+// https://marketplace.visualstudio.com/manage/publishers/file-and-folder-tool
+
+// Publish: vsce package --> vsce publish
+
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -30,13 +36,6 @@ function activate(context) {
           const { name } = path.parse(file);
           copyToClipboard(name);
         }
-      }
-    },
-    {
-      command: 'fft.copyFullPath',
-      callback: () => {
-        const file = getActiveFile();
-        if (file) copyToClipboard(file);
       }
     },
     {
