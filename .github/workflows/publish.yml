@@ -25,4 +25,4 @@ jobs:
     - name: Package and publish
       env:
         VSCE_PAT: ${{ secrets.VSCE_PAT }}
-      run: vsce publish
+      run: vsce publish --verbose
