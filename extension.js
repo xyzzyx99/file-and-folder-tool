@@ -45,22 +45,6 @@ function activate(context) {
         const file = getActiveFile();
         if (file) copyToClipboard(path.dirname(file));
       }
-    },
-    {
-      command: 'fft.openDirectory',
-      callback: () => {
-        const file = getActiveFile();
-        if (file) {
-          const dir = path.dirname(file);
-          if (process.platform === 'win32') {
-            child_process.exec(`start "" "${dir}"`);
-          } else if (process.platform === 'darwin') {
-            child_process.exec(`open "${dir}"`);
-          } else {
-            child_process.exec(`xdg-open "${dir}"`);
-          }
-        }
-      }
     }
   ];
 

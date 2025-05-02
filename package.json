@@ -28,10 +28,6 @@
       {
         "command": "fft.copyDirectoryPath",
         "title": "FFT: Copy Directory Path"
-      },
-      {
-        "command": "fft.openDirectory",
-        "title": "FFT: Open File Directory"
       }
     ]
   },
