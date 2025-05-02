@@ -1,8 +1,8 @@
 {
   "name": "file-and-folder-tool",
   "displayName": "File And Folder Tool",
-  "description": "Copy file name, full path, directory path, or open the file directory.",
-  "version": "0.0.1",
+  "description": "Copy file name, directory path and more.",
+  "version": "0.0.2",
   "publisher": "YongXianYin",
   "icon": "images/icon.png",
   "license": "MIT",
