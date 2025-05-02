@@ -1,0 +1,36 @@
+{
+  "name": "file-and-folder-tool",
+  "displayName": "File And Folder Tool",
+  "description": "Copy file name, full path, directory path, or open the file directory.",
+  "version": "0.0.1",
+  "publisher": "YongXianYin",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "fft.copyFileName",
+        "title": "FFT: Copy File Name"
+      },
+      {
+        "command": "fft.copyFullPath",
+        "title": "FFT: Copy Full File Path"
+      },
+      {
+        "command": "fft.copyDirectoryPath",
+        "title": "FFT: Copy Directory Path"
+      },
+      {
+        "command": "fft.openDirectory",
+        "title": "FFT: Open File Directory"
+      }
+    ]
+  },
+  "scripts": {},
+  "devDependencies": {}
+}
