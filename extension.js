@@ -54,7 +54,7 @@ function activate(context) {
       command: 'fft.copyAllFileName',
       callback: () => {
         const paths = GetPaths();
-        const filenames = paths.map(p => path.basename(p)).sort();
+        const filenames = paths.map(p => path.basename(p)).filter((v, i, a) => a.indexOf(v) === i).sort();
         vscode.env.clipboard.writeText(filenames.join("\n"))
       }
     },
@@ -62,7 +62,7 @@ function activate(context) {
       command: 'fft.copyAllFileNameWithoutExtension',
       callback: () => {
         const paths = GetPaths();
-        const filenames = paths.map(p => path.dirname(p)).sort();
+        const filenames = paths.map(p => path.parse(p).name).filter((v, i, a) => a.indexOf(v) === i).sort();
         vscode.env.clipboard.writeText(filenames.join("\n"))
       }
     },
@@ -70,7 +70,7 @@ function activate(context) {
       command: 'fft.copyAllDirectoryPath',
       callback: () => {
         const paths = GetPaths();
-        const filenames = paths.map(p => path.dirname(p)).sort();
+        const filenames = paths.map(p => path.dirname(p)).filter((v, i, a) => a.indexOf(v) === i).sort();
         vscode.env.clipboard.writeText(filenames.join("\n"))
       }
     }

@@ -2,7 +2,7 @@
   "name": "file-and-folder-tool",
   "displayName": "File And Folder Tool",
   "description": "Copy names or paths of open files, and more.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "YongXianYin",
   "icon": "images/icon.png",
   "license": "MIT",
@@ -25,7 +25,7 @@
       {
         "id": "fftOthers",
         "groupId": "fftOthers",
-        "label": "FFT: Others"
+        "label": "Others"
       }
     ],
     "menus": {
@@ -66,27 +66,27 @@
     "commands": [
       {
         "command": "fft.copyFileName",
-        "title": "FFT: Copy File Name"
+        "title": "Copy File Name"
       },
       {
         "command": "fft.copyFileNameWithoutExtension",
-        "title": "FFT: Copy File Name Without Extension"
+        "title": "Copy File Name Without Extension"
       },
       {
         "command": "fft.copyDirectoryPath",
-        "title": "FFT: Copy Directory Path"
+        "title": "Copy Directory Path"
       },
       {
         "command": "fft.copyAllFileName",
-        "title": "FFT: Copy All File Name"
+        "title": "Copy All File Name"
       },
       {
         "command": "fft.copyAllFileNameWithoutExtension",
-        "title": "FFT: Copy All File Name Without Extension"
+        "title": "Copy All File Name Without Extension"
       },
       {
         "command": "fft.copyAllDirectoryPath",
-        "title": "FFT: Copy All Directory Path"
+        "title": "Copy All Directory Path"
       }
     ]
   },
