@@ -1,5 +1,5 @@
 # File And Folder Tool
 
-Copy names or paths of open files, and more.
+Copy the file path and directory of the current file or all open files
 
 ![copy](./images/copy.gif)
