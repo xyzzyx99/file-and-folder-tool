@@ -2,7 +2,7 @@
   "name": "file-and-folder-tool",
   "displayName": "File And Folder Tool",
   "description": "Copy the file path and directory of the current file or all open files",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "publisher": "YongXianYin",
   "icon": "images/icon.png",
   "license": "MIT",
@@ -33,7 +33,6 @@
         {
           "command": "fft.copyFileName",
           "group": "2_copy@1"
-
         },
         {
           "command": "fft.copyFileNameWithoutExtension",
@@ -44,8 +43,12 @@
           "group": "2_copy@3"
         },
         {
-          "submenu": "fftOthers",
+          "command": "fft.copyFullPath",
           "group": "2_copy@4"
+        },
+        {
+          "submenu": "fftOthers",
+          "group": "2_copy@5"
         }
       ],
       "fftOthers": [
@@ -60,6 +63,10 @@
         {
           "command": "fft.copyAllDirectoryPath",
           "group": "fftOthers@3"
+        },
+        {
+          "command": "fft.copyAllFullPath",
+          "group": "fftOthers@4"
         }
       ]
     },
@@ -77,6 +84,10 @@
         "title": "Copy Directory Path"
       },
       {
+        "command": "fft.copyFullPath",
+        "title": "Copy Full Path"
+      },
+      {
         "command": "fft.copyAllFileName",
         "title": "Copy All File Name"
       },
@@ -85,10 +96,25 @@
         "title": "Copy All File Name Without Extension"
       },
       {
-        "command": "fft.copyAllDirectoryPath",
-        "title": "Copy All Directory Path"
+        "command": "fft.copyAllFullPath",
+        "title": "Copy All Full Path"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "File Folder Tool",
+      "properties": {
+        "fileFolderTool.quotePathIfSpace": {
+          "type": "boolean",
+          "default": false,
+          "description": "Quote the paths if paths contain spaces."
+        },
+        "fileFolderTool.alwaysQuotePath": {
+          "type": "boolean",
+          "default": false,
+          "description": "Always quote the paths if checked."
+        }
+      }
+    }
   },
   "scripts": {},
   "devDependencies": {}

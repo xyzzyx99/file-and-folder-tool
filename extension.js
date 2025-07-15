@@ -12,6 +12,34 @@ const child_process = require('child_process');
 /**
  * @param {vscode.ExtensionContext} context
  */
+function quoteIfContainsSpace(input) {
+
+  const config = vscode.workspace.getConfiguration("fileFolderTool");
+
+
+  const process = (str) => {
+
+    if (config.alwaysQuotePath) {
+      const escaped = str.replace(/"/g, '\\"');
+      return `"${escaped}"`;
+    } else if (config.quotePathIfSpace) {
+      if (str.includes(' ')) {
+        const escaped = str.replace(/"/g, '\\"');
+        return `"${escaped}"`;
+      }
+    }
+    return str;
+  };
+
+  if (Array.isArray(input)) {
+    return input.map(process);
+  } else if (typeof input === 'string') {
+    return process(input);
+  } else {
+    throw new TypeError('Input must be a string or an array of strings.');
+  }
+}
+
 function activate(context) {
   const getActiveFile = () => vscode.window.activeTextEditor?.document?.fileName;
 
@@ -30,7 +58,7 @@ function activate(context) {
       command: 'fft.copyFileName',
       callback: () => {
         const file = getActiveFile();
-        if (file) copyToClipboard(path.basename(file));
+        if (file) copyToClipboard(quoteIfContainsSpace(path.basename(file)));
       }
     },
     {
@@ -39,6 +67,7 @@ function activate(context) {
         const file = getActiveFile();
         if (file) {
           const { name } = path.parse(file);
+          name = quoteIfContainsSpace(name);
           copyToClipboard(name);
         }
       }
@@ -47,7 +76,14 @@ function activate(context) {
       command: 'fft.copyDirectoryPath',
       callback: () => {
         const file = getActiveFile();
-        if (file) copyToClipboard(path.dirname(file));
+        if (file) copyToClipboard(quoteIfContainsSpace(path.dirname(file)));
+      }
+    },
+    {
+      command: 'fft.copyFullPath',
+      callback: () => {
+        const file = getActiveFile();
+        if (file) copyToClipboard(quoteIfContainsSpace(file));
       }
     },
     {
@@ -55,7 +91,7 @@ function activate(context) {
       callback: () => {
         const paths = GetPaths();
         const filenames = paths.map(p => path.basename(p)).filter((v, i, a) => a.indexOf(v) === i).sort();
-        vscode.env.clipboard.writeText(filenames.join("\n"))
+        vscode.env.clipboard.writeText(quoteIfContainsSpace(filenames).join("\n"))
       }
     },
     {
@@ -63,7 +99,7 @@ function activate(context) {
       callback: () => {
         const paths = GetPaths();
         const filenames = paths.map(p => path.parse(p).name).filter((v, i, a) => a.indexOf(v) === i).sort();
-        vscode.env.clipboard.writeText(filenames.join("\n"))
+        vscode.env.clipboard.writeText(quoteIfContainsSpace(filenames).join("\n"))
       }
     },
     {
@@ -71,7 +107,15 @@ function activate(context) {
       callback: () => {
         const paths = GetPaths();
         const filenames = paths.map(p => path.dirname(p)).filter((v, i, a) => a.indexOf(v) === i).sort();
-        vscode.env.clipboard.writeText(filenames.join("\n"))
+        vscode.env.clipboard.writeText(quoteIfContainsSpace(filenames).join("\n"))
+      }
+    },
+    {
+      command: 'fft.copyAllFullPath',
+      callback: () => {
+        const paths = GetPaths();
+        const filenames = paths.sort();
+        vscode.env.clipboard.writeText(quoteIfContainsSpace(filenames).join("\n"))
       }
     }
   ];
@@ -83,27 +127,27 @@ function activate(context) {
 }
 
 function GetPaths() {
-	const fsPaths = vscode.workspace.textDocuments.map(doc => doc.uri.fsPath);
-	const documentFsPaths = vscode.window.visibleTextEditors.map(eidtor => eidtor.document.uri.fsPath);
-	const tabPaths = vscode.window.tabGroups.all.flatMap(({ tabs }) => tabs.map(tab => {
-		if (tab.input instanceof vscode.TabInputText || tab.input instanceof vscode.TabInputNotebook) {
-			return tab.input.uri.fsPath;
-		}
+  const fsPaths = vscode.workspace.textDocuments.map(doc => doc.uri.fsPath);
+  const documentFsPaths = vscode.window.visibleTextEditors.map(eidtor => eidtor.document.uri.fsPath);
+  const tabPaths = vscode.window.tabGroups.all.flatMap(({ tabs }) => tabs.map(tab => {
+    if (tab.input instanceof vscode.TabInputText || tab.input instanceof vscode.TabInputNotebook) {
+      return tab.input.uri.fsPath;
+    }
 
-		if (tab.input instanceof vscode.TabInputTextDiff || tab.input instanceof vscode.TabInputNotebookDiff) {
-			return tab.input.original.fsPath;
-		}
+    if (tab.input instanceof vscode.TabInputTextDiff || tab.input instanceof vscode.TabInputNotebookDiff) {
+      return tab.input.original.fsPath;
+    }
 
-		return null;
-	})).filter(Boolean);
-	const distinctPaths = [...new Set([...fsPaths.concat(documentFsPaths).concat(tabPaths)]
-	.filter(path => !path.startsWith("git") && 
-					!path.endsWith("git") &&
-					path !== null))];
-	return distinctPaths;
+    return null;
+  })).filter(Boolean);
+  const distinctPaths = [...new Set([...fsPaths.concat(documentFsPaths).concat(tabPaths)]
+    .filter(path => !path.startsWith("git") &&
+      !path.endsWith("git") &&
+      path !== null))];
+  return distinctPaths;
 }
 
-function deactivate() {}
+function deactivate() { }
 
 module.exports = {
   activate,
