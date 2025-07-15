@@ -14,4 +14,4 @@ Copy the file path and directory of the current file or all open files
 
 ### Compile:
 
-vsce package
+- Just run "vsce package".
