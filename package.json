@@ -68,6 +68,10 @@
         {
           "command": "fft.copyAllFullPath",
           "group": "fftOthers@4"
+        },
+        {
+          "command": "fft.openSettings",
+          "group": "fftSettings"
         }
       ]
     },
@@ -99,6 +103,10 @@
       {
         "command": "fft.copyAllFullPath",
         "title": "Copy All Full Path"
+      },
+      {
+        "command": "fft.openSettings",
+        "title": "Open File and Folder Tool Settings"
       }
     ],
     "configuration": {

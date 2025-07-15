@@ -12,6 +12,7 @@ Copy the file path and directory of the current file or all open files
 
 - Added settings for quoting paths. Search for "File Folder Tool" in settings.
 
+
 ### Compile:
 
 - Just run "vsce package".

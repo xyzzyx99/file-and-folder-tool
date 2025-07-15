@@ -1,3 +1,5 @@
+//import * as vscode from 'vscode';
+
 const vscode = require('vscode');
 const path = require('path');
 const fs = require('fs');
@@ -39,6 +41,13 @@ function quoteIfContainsSpace(input) {
     throw new TypeError('Input must be a string or an array of strings.');
   }
 }
+
+/*export function activate(context) {
+  const openSettings = vscode.commands.registerCommand('fileFolderTool.openSettings', () => {
+    vscode.commands.executeCommand('workbench.action.openSettings', 'fileFolderTool');
+  });
+  context.subscriptions.push(openSettings);
+}*/
 
 function activate(context) {
   const getActiveFile = () => vscode.window.activeTextEditor?.document?.fileName;
@@ -116,6 +125,12 @@ function activate(context) {
         const paths = GetPaths();
         const filenames = paths.sort();
         vscode.env.clipboard.writeText(quoteIfContainsSpace(filenames).join("\n"))
+      }
+    },
+    {
+      command: 'fft.openSettings',
+      callback: () => {
+        vscode.commands.executeCommand('workbench.action.openSettings', 'fileFolderTool')
       }
     }
   ];
