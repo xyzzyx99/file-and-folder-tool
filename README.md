@@ -10,7 +10,7 @@ Copy the file path and directory of the current file or all open files
 
 ### 0.0.7
 
-- Added settings for quoting paths. Search for "File Folder Tool" insettings.
+- Added settings for quoting paths. Search for "File Folder Tool" in settings.
 
 ### Compile:
 
